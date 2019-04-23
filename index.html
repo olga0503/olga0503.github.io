@@ -4,18 +4,24 @@
   <meta charset="utf-8">
   <title>val demo</title>
   <style>
-  h1,
-  textarea {text-align:center;}
+  
   </style>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
  
-<h1>Function that reverses any word that user types in</h1>
+<h4>Function that reverses any word that user types in</h4>
 <textarea></textarea>
 
-<h1>Function that takes an input number, and prints a table with the first 20 multiples of
-the number, in order 5x4</h1>
+<h4>Function that takes an input number, and prints a table with the first 20 multiples of
+the number, in order 5x4</h4>
+<input id="number"></input>
+<input type="button" value="Show Table" onclick="Javascript:addTable()">
+<table id="tab">
+
+</table>
+
+
  
 <script>
 String.prototype.reverse = function() {
@@ -29,6 +35,22 @@ String.prototype.reverse = function() {
     $("textarea").change(function(){
   alert($("textarea").val().reverse());
     });
+
+function addTable() {
+    var text = "";
+    var i;
+    var num = document.getElementById("number").value;  
+    for (i = 0; i <= 4; i++) {
+        text += "<tr>"
+           for (j = 1; j <= 4; j++) {
+               text += "<td>" + num*(j+i*4) + "</td>"
+             }
+        text += "<tr>"
+       }
+
+    document.getElementById("tab").innerHTML = text;   
+     }
+    
 </script>
  
 </body>
