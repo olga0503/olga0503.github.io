@@ -4,29 +4,43 @@
   <meta charset="utf-8">
   <title>val demo</title>
   <style>
-  
+       h1 {text-align:center;}
   </style>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body>
  
-<h4>Function that reverses any word that user types in</h4>
-<textarea></textarea>
+ <div>
+<h1>Module 6<h1>
+ </div>
 
-<h4>Function that takes an input number, and prints a table with the first 20 multiples of
-the number, in order 5x4</h4>
-<input id="number"></input>
-<input type="button" value="Show Table" onclick="Javascript:addTable()">
+<div>
+<h4>Function that reverses any word that user types in.</h4>
+<input id="reverse_word">
+</div>
+
+<div>
+<h4>Function that takes an input number, and prints a table with the first 20 multiples of the number, in order 5x4.</h4>
+<input id="number" type="number" placeholder="Enter a number">
+<input type="button" value="Show Table" onclick="Javascript:printTable()">
 <table id="tab"></table>
+<div>
 
+<div id ="presidents">
 <h4>Function that loads the presidents.csv data and display the data as an html table</h4>
+</div>
 
-<p><p>
 
+<div id ="weight_height">
+<h4>Function that returns president’s height & weight when user types it in.</h4>
+<input  id="president_name">
+<input type="button" value="Show President's Weight & Height"  onclick="Javascript:showHeightWeight()">
+</div>
 
  
 <script>
+//Function that reverses any word that user types in
 String.prototype.reverse = function() {
     var str = this,
         newString = new String();
@@ -35,10 +49,11 @@ String.prototype.reverse = function() {
     }
     return newString;
 }
-    $("textarea").change(function(){
-  alert($("textarea").val().reverse());
+    $("#reverse_word").change(function(){
+  alert($("#reverse_word").val().reverse());
     });
-function addTable() {
+//Function that takes an input number, and prints a table with the first 20 multiples of the number, in order 5x4
+function printTable() {
     var text = "";
     var i;
     var num = document.getElementById("number").value;  
@@ -51,8 +66,10 @@ function addTable() {
        }
     document.getElementById("tab").innerHTML = text;   
      }
-var tabulate = function (data,columns) {
-  var table = d3.select('body').append('table')
+  
+  //Function that loads the presidents.csv data and display the data as an html table
+  var tabulate = function (data,columns) {
+  var table = d3.select('body #presidents').append('table')
   var thead = table.append('thead')
   var tbody = table.append('tbody')
   thead.append('tr')
@@ -68,7 +85,7 @@ var tabulate = function (data,columns) {
   var cells = rows.selectAll('td')
       .data(function(row) {
         return columns.map(function (column) {
-          return { column: column, value: row[column] }
+          return {column: column, value: row[column]}
         })
       })
       .enter()
@@ -79,7 +96,49 @@ var tabulate = function (data,columns) {
 d3.csv('presidents.csv',function (data) {
   var columns = ['Name','Weight','Height']
   tabulate(data,columns)
-})
+});
+
+
+//Function that returns president’s height & weight when user types it in
+function showHeightWeight() {
+  var president = document.getElementById("president_name").value; 
+  var tabulate = function (data,columns) {
+  var table = d3.select('body #weight_height').append('table')
+  var thead = table.append('thead')
+  var tbody = table.append('tbody')
+  thead.append('tr')
+    .selectAll('th')
+      .data(columns)
+      .enter()
+    .append('th')
+      .text(function (d) { return d })
+  var rows = tbody.selectAll('tr')
+      .data(data)
+      .enter()
+    .append('tr')
+  var cells = rows.selectAll('td')
+      .data(function(row) {
+        return columns.map(function (column) {
+          return {column: column, value: row[column]}
+        })
+      })
+      .enter()
+    .append('td')
+      .text(function (d) { return d.value })
+  return table;
+}
+d3.csv('presidents.csv',function (data) {
+  var filteredData = data.filter(function(d) 
+{ 
+        if( d["Name"] == String(president))
+        { 
+            return d;
+        } 
+    })
+  var columns = ['Weight','Height']
+  tabulate(filteredData,columns)
+});
+}
     
 </script>
  
