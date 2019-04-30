@@ -93,7 +93,7 @@ function printTable() {
       .text(function (d) { return d.value })
   return table;
 }
-d3.csv('presidents.csv',function (data) {
+d3.csv('https://raw.githubusercontent.com/olga0503/olga0503.github.io/master/presidents.csv',function (data) {
   var columns = ['Name','Weight','Height']
   tabulate(data,columns)
 });
