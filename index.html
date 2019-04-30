@@ -29,8 +29,6 @@
 
 <div id ="presidents">
 <h4>Function that loads the presidents.csv data and display the data as an html table</h4>
-<input type="button" value="Show Presidents"  onclick="Javascript:showPresidents()">
-<button onclick="showPresidents()">Show Presidents</button>
 </div>
 
 
@@ -70,7 +68,6 @@ function printTable() {
      }
   
   //Function that loads the presidents.csv data and display the data as an html table
-  function showPresidents() {
   var tabulate = function (data,columns) {
   var table = d3.select('body #presidents').append('table')
   var thead = table.append('thead')
@@ -100,7 +97,8 @@ d3.csv('presidents.csv',function (data) {
   var columns = ['Name','Weight','Height']
   tabulate(data,columns)
 });
-}
+
+
 //Function that returns president’s height & weight when user types it in
 function showHeightWeight() {
   var president = document.getElementById("president_name").value; 
