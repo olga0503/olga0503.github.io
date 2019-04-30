@@ -30,6 +30,7 @@
 <div id ="presidents">
 <h4>Function that loads the presidents.csv data and display the data as an html table</h4>
 <input type="button" value="Show Presidents"  onclick="Javascript:showPresidents()">
+<button onclick="showPresidents()">Show Presidents</button>
 </div>
 
 
@@ -41,7 +42,6 @@
 
  
 <script>
-
 //Function that reverses any word that user types in
 String.prototype.reverse = function() {
     var str = this,
@@ -54,7 +54,6 @@ String.prototype.reverse = function() {
     $("#reverse_word").change(function(){
   alert($("#reverse_word").val().reverse());
     });
-
 //Function that takes an input number, and prints a table with the first 20 multiples of the number, in order 5x4
 function printTable() {
     var text = "";
@@ -67,31 +66,25 @@ function printTable() {
              }
         text += "<tr>"
        }
-
     document.getElementById("tab").innerHTML = text;   
      }
-
   
   //Function that loads the presidents.csv data and display the data as an html table
   function showPresidents() {
-
   var tabulate = function (data,columns) {
   var table = d3.select('body #presidents').append('table')
   var thead = table.append('thead')
   var tbody = table.append('tbody')
-
   thead.append('tr')
     .selectAll('th')
       .data(columns)
       .enter()
     .append('th')
       .text(function (d) { return d })
-
   var rows = tbody.selectAll('tr')
       .data(data)
       .enter()
     .append('tr')
-
   var cells = rows.selectAll('td')
       .data(function(row) {
         return columns.map(function (column) {
@@ -101,39 +94,30 @@ function printTable() {
       .enter()
     .append('td')
       .text(function (d) { return d.value })
-
   return table;
 }
-
 d3.csv('presidents.csv',function (data) {
   var columns = ['Name','Weight','Height']
-
   tabulate(data,columns)
 });
 }
-
 //Function that returns president’s height & weight when user types it in
 function showHeightWeight() {
-
   var president = document.getElementById("president_name").value; 
-
   var tabulate = function (data,columns) {
   var table = d3.select('body #weight_height').append('table')
   var thead = table.append('thead')
   var tbody = table.append('tbody')
-
   thead.append('tr')
     .selectAll('th')
       .data(columns)
       .enter()
     .append('th')
       .text(function (d) { return d })
-
   var rows = tbody.selectAll('tr')
       .data(data)
       .enter()
     .append('tr')
-
   var cells = rows.selectAll('td')
       .data(function(row) {
         return columns.map(function (column) {
@@ -143,28 +127,20 @@ function showHeightWeight() {
       .enter()
     .append('td')
       .text(function (d) { return d.value })
-
   return table;
 }
-
 d3.csv('presidents.csv',function (data) {
   var filteredData = data.filter(function(d) 
 { 
-
         if( d["Name"] == String(president))
         { 
             return d;
         } 
-
     })
   var columns = ['Weight','Height']
-
   tabulate(filteredData,columns)
 });
 }
-
-
-
     
 </script>
  
